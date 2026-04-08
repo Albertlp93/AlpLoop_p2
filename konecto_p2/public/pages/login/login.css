@@ -1,0 +1,68 @@
+/* public/pages/login/login.css */
+
+/* --- TARJETA DE LOGIN --- */
+.login-card {
+  border: 3px solid var(--azul-marino);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background-color: var(--amarillo); /* El cuerpo de la tarjeta es amarillo */
+  margin-top: 2rem;
+}
+
+.login-header {
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.login-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.login-body {
+  padding: 2rem;
+}
+
+/* --- CONTENEDOR AZUL PARA INPUTS --- */
+.login-campos {
+  background-color: var(--azul-marino);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.login-campos .form-label {
+  color: var(--blanco);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+/* --- BOTÓN PÍLDORA --- */
+.btn-login {
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+  border: none;
+  border-radius: 3rem;
+  padding: 0.8rem;
+  font-weight: 800;
+  width: 100%;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.btn-login:hover {
+  background-color: #142e55;
+  transform: translateY(-2px);
+}
+
+/* Estilo de los inputs dentro del bloque azul */
+.form-control {
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    border: none;
+}

@@ -1,0 +1,43 @@
+/* public/pages/dashboard/dashboard.css */
+
+.columna-dashboard {
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 3px solid var(--azul-marino);
+    margin-top: 2.5rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.columna-header {
+    background-color: var(--azul-marino);
+    color: var(--blanco);
+    text-align: center;
+    padding: 1.2rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+
+.columna-body {
+    background-color: var(--amarillo);
+    padding: 2rem;
+    min-height: 450px;
+}
+
+/* ESPACIADO DE LAS TARJETAS */
+.tarjeta-oferta, .tarjeta-demanda {
+    margin-bottom: 1.5rem !important; /* Espacio generoso entre tarjetas */
+    border: none;
+    border-radius: 0.75rem;
+    transition: transform 0.2s;
+}
+
+.tarjeta-oferta { background-color: var(--naranja) !important; color: white; }
+.tarjeta-demanda { background-color: var(--azul-marino) !important; color: white; }
+
+/* Estilo para cuando arrastramos encima */
+.dropzone.dragover {
+    background-color: #d4c540 !important;
+    border: 3px dashed var(--azul-marino);
+}

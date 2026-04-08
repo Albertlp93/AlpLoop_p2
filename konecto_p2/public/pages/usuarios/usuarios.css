@@ -1,0 +1,119 @@
+/* public/pages/usuarios/usuarios.css */
+
+/* --- CONTENEDOR FORMULARIO (AZUL) --- */
+.form-empleos {
+  background-color: var(--azul-marino);
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 3px solid var(--azul-marino);
+}
+
+.form-empleos-header {
+  padding: 1.2rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.form-empleos-header h2 {
+  color: var(--blanco);
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.form-empleos-body {
+  padding: 1.5rem;
+}
+
+.form-empleos-body .form-label {
+  color: var(--blanco);
+  font-weight: 600;
+}
+
+.btn-alta {
+  background-color: var(--amarillo);
+  color: var(--texto-oscuro);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.75rem;
+  font-weight: 800;
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn-alta:active { transform: scale(0.96); }
+
+/* --- CONTENEDOR TABLA (AMARILLO) --- */
+.tabla-empleos-wrapper {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 3px solid var(--azul-marino);
+}
+
+.tabla-empleos-header {
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+  padding: 1rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.tabla-empleos-body {
+  background-color: var(--amarillo);
+  padding: 1.5rem;
+  min-height: 450px;
+}
+
+/* --- ESTILO DE LA TABLA Y TITULOS --- */
+.table {
+  border-collapse: separate;
+  border-spacing: 0 0.8rem; /* Espacio entre tarjetas de usuario */
+  margin-top: 0;
+}
+
+/* Títulos de columna (Azul Marino) */
+.table thead th {
+    background-color: var(--azul-marino) !important;
+    color: var(--blanco) !important;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+}
+
+/* Redondeado de las esquinas del thead */
+.table thead tr th:first-child { border-radius: 0.5rem 0 0 0.5rem; }
+.table thead tr th:last-child { border-radius: 0 0.5rem 0.5rem 0; }
+
+/* Filas del cuerpo (Blancas) */
+.table tbody tr {
+  background-color: var(--blanco);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.table tbody td {
+  padding: 1rem;
+  border: none;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Redondeado de las esquinas de las filas */
+.table tbody td:first-child { border-radius: 0.5rem 0 0 0.5rem; }
+.table tbody td:last-child { border-radius: 0 0.5rem 0.5rem 0; }
+
+.btn-eliminar {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
