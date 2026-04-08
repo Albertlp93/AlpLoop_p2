@@ -21,22 +21,56 @@
 
 .columna-body {
     background-color: var(--amarillo);
-    padding: 2rem;
+    padding: 1.5rem;
     min-height: 450px;
 }
 
-/* ESPACIADO DE LAS TARJETAS */
 .tarjeta-oferta, .tarjeta-demanda {
-    margin-bottom: 1.5rem !important; /* Espacio generoso entre tarjetas */
+    margin-bottom: 1.2rem !important;
     border: none;
     border-radius: 0.75rem;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: grab;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.tarjeta-oferta { background-color: var(--naranja) !important; color: white; }
-.tarjeta-demanda { background-color: var(--azul-marino) !important; color: white; }
+.tarjeta-oferta:active, .tarjeta-demanda:active {
+    cursor: grabbing;
+}
 
-/* Estilo para cuando arrastramos encima */
+.tarjeta-oferta { background-color: var(--naranja) !important; color: var(--blanco); }
+.tarjeta-demanda { background-color: var(--azul-marino) !important; color: var(--blanco); }
+
+.card-title-dashboard {
+    font-weight: 800;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.card-description {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.badge-dashboard {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 .dropzone.dragover {
     background-color: #d4c540 !important;
     border: 3px dashed var(--azul-marino);

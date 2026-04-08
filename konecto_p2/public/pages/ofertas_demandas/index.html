@@ -12,7 +12,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">KONECTO</a>
+            <a class="navbar-brand" href="#">KONECTO</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="../dashboard/index.html">Dashboard</a></li>
@@ -21,7 +21,7 @@
                     <li class="nav-item"><a class="nav-link" href="../usuarios/index.html">Altas Usuarios</a></li>
                 </ul>
                 <div class="navbar-text text-white">
-                    <span id="usuarioActivo">no conectado</span>
+                    <span id="usuarioActivo">-no login-</span>
                     <a href="#" id="logoutButton" class="ms-2 d-none">(salir)</a>
                 </div>
             </div>
@@ -36,34 +36,44 @@
                     <div class="form-empleos-body">
                         <form id="formEmpleos">
                             <div class="mb-3">
-                                <label class="form-label">Título de la actividad</label>
-                                <input type="text" id="titulo" class="form-control" required>
+                                <label class="form-label">¿Qué deseas publicar?</label>
+                                <select id="tipo" class="form-select" required>
+                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                    <option value="Oferta">Oferta de Empleo</option>
+                                    <option value="Demanda">Demanda de Empleo</option>
+                                </select>
                             </div>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Email de contacto</label>
-                                    <input type="email" id="emailContacto" class="form-control" required>
+
+                            <div id="camposDinamicos" class="d-none">
+                                <div class="mb-3">
+                                    <label class="form-label" id="labelTitulo">Título</label>
+                                    <input type="text" id="titulo" class="form-control" required>
                                 </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Fecha</label>
-                                    <input type="date" id="fecha" class="form-control" required>
+
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Fecha de Publicación</label>
+                                        <input type="date" id="fechaPublicacion" class="form-control" required>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Jornada Laboral</label>
+                                        <select id="jornada" class="form-select">
+                                            <option value="Completa">Completa</option>
+                                            <option value="Parcial">Parcial</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 mb-3 d-none" id="grupoSueldo">
+                                        <label class="form-label">Sueldo Anual (€)</label>
+                                        <input type="number" id="sueldo" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Tipo</label>
-                                    <select id="tipo" class="form-select" required>
-                                        <option value="Oferta">Oferta</option>
-                                        <option value="Demanda">Demanda</option>
-                                    </select>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Descripción</label>
+                                    <textarea id="descripcion" class="form-control" rows="3" required></textarea>
                                 </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Acción</label>
-                                    <button type="submit" class="btn-alta">PUBLICAR</button>
-                                </div>
-                            </div>
-                            <div class="d-none">
-                                <textarea id="descripcion">Autogenerado</textarea>
+
+                                <button type="submit" class="btn-alta">PUBLICAR</button>
                             </div>
                         </form>
                     </div>
@@ -75,9 +85,9 @@
                     <div class="tabla-empleos-header">ESTADÍSTICAS REALES</div>
                     <div class="tabla-empleos-body d-flex flex-column align-items-center justify-content-center h-100">
                         <canvas id="graficoCanvas" width="280" height="180"></canvas>
-                        <div class="mt-3 fw-bold">
-                            <span style="color:var(--naranja)">● OFERTAS</span>
-                            <span class="ms-4" style="color:var(--azul-marino)">● DEMANDAS</span>
+                        <div class="leyenda-grafico">
+                            <span class="color-oferta">● OFERTAS</span>
+                            <span class="ms-4 color-demanda">● DEMANDAS</span>
                         </div>
                     </div>
                 </div>
@@ -90,9 +100,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>ACTIVIDAD</th>
+                                    <th>DETALLES ACTIVIDAD</th>
                                     <th>CONTACTO</th>
-                                    <th>FECHA</th>
+                                    <th>FECHA PUBLICACION</th>
                                     <th>MODALIDAD</th>
                                     <th>ACCIÓN</th>
                                 </tr>

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const origen = document.getElementById('contenedorOrigen');
     const destino = document.getElementById('contenedorDestino');
 
+    // Configuración Drag & Drop
     [origen, destino].forEach(zona => {
         zona.addEventListener('dragover', e => {
             e.preventDefault();
@@ -22,10 +23,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     });
 
-    document.getElementById('logoutButton').addEventListener('click', () => {
-        almacenaje.cerrarSesion();
-        window.location.reload();
-    });
+    const logoutBtn = document.getElementById('logoutButton');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            almacenaje.cerrarSesion();
+            window.location.reload(); // Recarga para volver al estado "invitado"
+        });
+    }
 });
 
 async function cargarCards() {
@@ -33,20 +38,31 @@ async function cargarCards() {
     const datos = await almacenaje.obtenerVoluntariados();
     contenedor.innerHTML = '';
 
+    if (datos.length === 0) {
+        contenedor.innerHTML = '<p class="text-center opacity-75 mt-4">No hay publicaciones disponibles.</p>';
+        return;
+    }
+
     datos.forEach(item => {
         const card = document.createElement('div');
-        const claseTipo = item.tipo === 'Oferta' ? 'tarjeta-oferta' : 'tarjeta-demanda';
+        const esOferta = item.tipo === 'Oferta';
+        const claseTipo = esOferta ? 'tarjeta-oferta' : 'tarjeta-demanda';
         
-        card.className = `card ${claseTipo} card-draggable p-3`;
+        card.className = `card ${claseTipo} p-3`;
         card.id = `vol-${item.id}`;
         card.draggable = true;
 
+        const htmlSueldo = esOferta ? `<span class="badge-dashboard">💰 ${item.sueldo}€/año</span>` : '';
+        
         card.innerHTML = `
             <div class="card-body p-0">
-                <h5 class="card-title">${item.titulo.toUpperCase()}</h5>
-                <div class="mt-2">
-                    <span class="badge-tarjeta">${item.tipo}</span>
-                    <span class="badge-tarjeta">${item.email}</span>
+                <div class="card-title-dashboard">${item.titulo.toUpperCase()}</div>
+                <p class="card-description">${item.descripcion}</p>
+                <div class="badge-container">
+                    <span class="badge-dashboard">${item.tipo}</span>
+                    <span class="badge-dashboard">⏱️ ${item.jornada}</span>
+                    ${htmlSueldo}
+                    <span class="badge-dashboard">📧 ${item.email}</span>
                 </div>
             </div>
         `;
@@ -63,10 +79,21 @@ async function cargarCards() {
 
 function actualizarInterfaz() {
     const user = almacenaje.obtenerUsuarioActivo();
+    const displayNav = document.getElementById('usuarioActivo');
+    const displayHero = document.getElementById('nombreUsuarioHero');
+    const displayAvatar = document.getElementById('avatarUsuario');
+    const logoutBtn = document.getElementById('logoutButton');
+
     if (user) {
-        document.getElementById('usuarioActivo').textContent = user;
-        document.getElementById('nombreUsuarioHero').textContent = user;
-        document.getElementById('avatarUsuario').textContent = user.charAt(0).toUpperCase();
-        document.getElementById('logoutButton').classList.remove('d-none');
+        displayNav.textContent = user;
+        displayHero.textContent = user;
+        displayAvatar.textContent = user.charAt(0).toUpperCase();
+        logoutBtn.classList.remove('d-none');
+    } else {
+        // En lugar de redirigir, mostramos estados por defecto para poder testear
+        displayNav.textContent = "- no login -";
+        displayHero.textContent = "Invitado (sin sesión)";
+        displayAvatar.textContent = "?";
+        logoutBtn.classList.add('d-none');
     }
 }
