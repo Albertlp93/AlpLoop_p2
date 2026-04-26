@@ -2,7 +2,7 @@
 import * as almacenaje from '../../shared/js/almacenaje.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mostrar estado inicial (si ya estaba logueado)
+    // 1. Mostrar estado inicial
     actualizarInterfaz();
 
     const loginForm = document.getElementById('loginForm');
@@ -12,37 +12,43 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const email = document.getElementById('email').value;
+        const email = document.getElementById('email').value.trim();
         const pass = document.getElementById('password').value;
 
+        if (!email || !pass) {
+            alert("Por favor, rellena todos los campos.");
+            return;
+        }
+
         try {
-            // Llamada asíncrona al módulo shared
+            // Llamada asíncrona al módulo de base de datos
             const usuario = await almacenaje.loguearUsuario(email, pass);
             
-            // Éxito: Guardar en LocalStorage y avisar
+            // ÉXITO: Guardamos la sesión
             localStorage.setItem('usuarioActivo', usuario.email);
-            alert(`¡Hola de nuevo, ${usuario.email}!`);
             
-            actualizarInterfaz();
-            loginForm.reset();
+            // 🚩 REDIRECCIÓN: Enviamos al usuario al Dashboard
+            // Usamos un pequeño delay opcional o el alert para que el usuario sepa que entró
+            alert(`¡Bienvenido de nuevo, ${usuario.nombre || usuario.email}!`);
+            window.location.href = '../dashboard/index.html'; 
+
         } catch (error) {
-            // Manejo de errores de la Promesa
-            alert("Error: " + error.message);
+            // Error de autenticación (usuario no existe o contraseña mal)
+            alert("⚠️ " + error.message);
         }
     });
 
     // 3. Evento de Cerrar Sesión
-    logoutBtn.addEventListener('click', () => {
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Evitamos que el enlace # recargue la página antes de tiempo
         almacenaje.cerrarSesion();
         alert("Has cerrado sesión correctamente.");
-        actualizarInterfaz();
-        // Opcional: Redirigir o recargar para limpiar el estado
         window.location.reload();
     });
 });
 
 /**
- * Función que actualiza los elementos de la Navbar según el estado de la sesión
+ * Actualiza los elementos de la Navbar según el estado de la sesión
  */
 function actualizarInterfaz() {
     const display = document.getElementById('usuarioActivo');
@@ -51,11 +57,11 @@ function actualizarInterfaz() {
 
     if (user) {
         display.textContent = user;
-        display.classList.replace('bg-secondary', 'bg-success');
-        logoutBtn.classList.remove('d-none'); // Mostrar botón de cerrar sesión
+        display.style.color = "var(--amarillo)"; // Estética acorde a tu CSS
+        logoutBtn.classList.remove('d-none');
     } else {
-        display.textContent = "-no login-";
-        display.classList.replace('bg-success', 'bg-secondary');
-        logoutBtn.classList.add('d-none');    // Ocultar botón de cerrar sesión
+        display.textContent = "no conectado";
+        display.style.color = "inherit";
+        logoutBtn.classList.add('d-none');
     }
 }
